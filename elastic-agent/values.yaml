@@ -1,3 +1,7 @@
+ElasticSearchHost: ""
+ElasticSearchUser: elastic
+ElasticSearchPassword: ""
+
 image:
   repository: docker.elastic.co/beats/elastic-agent
   pullPolicy: IfNotPresent

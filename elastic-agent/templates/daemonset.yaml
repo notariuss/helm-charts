@@ -11,15 +11,15 @@ spec:
       {{- include "elastic-agent.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       labels:
         {{- include "elastic-agent.selectorLabels" . | nindent 8 }}
     spec:
+      {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
       serviceAccountName: elastic-agent
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
@@ -35,11 +35,11 @@ spec:
           ]
           env:
             - name: ES_USERNAME
-              value: "elastic"
+              value: "{{ .Values.ElasticSearchUser }}"
             - name: ES_PASSWORD
-              value: ""
+              value: "{{ .Values.ElasticSearchPassword }}"
             - name: ES_HOST
-              value: ""
+              value: "{{ .Values.ElasticSearchHost }}"
             - name: NODE_NAME
               valueFrom:
                 fieldRef:
