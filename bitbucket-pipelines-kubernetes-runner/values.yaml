@@ -1,0 +1,51 @@
+conf:
+  account_uuid: ""
+  repository_uuid: ""
+  runner_uuid: ""
+  oauth_client_id: ""
+  oauth_client_secret: ""
+
+nameOverride: ""
+fullnameOverride: ""
+replicaCount: 1
+
+runner:
+  image:
+    repository: docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner
+    pullPolicy: IfNotPresent
+    tag: "1"
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+dind:
+  image:
+    repository: docker
+    pullPolicy: IfNotPresent
+    tag: 20.10.7-dind-rootless
+  resources: {}
+  securityContext: {}
+
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podSecurityContext: {}
+  # fsGroup: 2000
+nodeSelector: {}
+tolerations: []
+affinity: {}
