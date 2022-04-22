@@ -1,4 +1,5 @@
 conf:
+  # Without { }
   account_uuid: ""
   repository_uuid: ""
   runner_uuid: ""
